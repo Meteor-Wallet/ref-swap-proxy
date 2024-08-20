@@ -10,9 +10,10 @@ import { computed, effect, signal } from '@preact/signals';
 import * as nearAPI from 'near-api-js';
 import '@near-wallet-selector/modal-ui/styles.css';
 import { AccountView } from 'near-api-js/lib/providers/provider';
+import { config } from '../config';
 
 const selector = await setupWalletSelector({
-    network: 'testnet',
+    network: config.nearEnv,
     modules: [setupMyNearWallet(), setupMeteorWallet()],
 });
 
@@ -30,7 +31,14 @@ export const activeAccount = computed<AccountState | undefined>(() => {
 
 export const accountState = signal<AccountView | null>(null);
 
-effect(refreshAccountState);
+effect(() => {
+    if (!activeAccount.value) {
+        accountState.value = null;
+        return;
+    }
+
+    refreshAccountState();
+});
 
 export async function refreshAccountState() {
     if (!activeAccount.value) {
@@ -39,8 +47,8 @@ export async function refreshAccountState() {
     }
 
     const near = await nearAPI.connect({
-        networkId: 'testnet',
-        nodeUrl: 'https://rpc.testnet.near.org',
+        networkId: config.nearEnv,
+        nodeUrl: config.nearRpcEndpoint,
     });
 
     const account = await near.account(activeAccount.value.accountId);

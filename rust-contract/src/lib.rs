@@ -76,6 +76,10 @@ impl Contract {
         self.owner_id = new_owner_id;
     }
 
+    pub fn get_owner_id(&self) -> AccountId {
+        self.owner_id.clone()
+    }
+
     #[payable]
     pub fn set_referral_id(&mut self, referral_id: Option<AccountId>) {
         assert_one_yocto();
@@ -83,9 +87,17 @@ impl Contract {
         self.referral_id = referral_id;
     }
 
+    pub fn get_referral_id(&self) -> Option<AccountId> {
+        self.referral_id.clone()
+    }
+
     #[payable]
     pub fn set_ref_exchange_id(&mut self, _ref_exchange_id: AccountId) {
         panic!("{}", ER71_REF_EXCHANGE_ID_SHOULD_NOT_BE_CHANGED);
+    }
+
+    pub fn get_ref_exchange_id(&self) -> AccountId {
+        self.ref_exchange_id.clone()
     }
 
     #[payable]
@@ -93,6 +105,10 @@ impl Contract {
         assert!(exchange_fee < 10000, "{}", ER72_EXCHANGE_FEE_TOO_HIGH);
         self.assert_owner();
         self.exchange_fee = exchange_fee;
+    }
+
+    pub fn get_exchange_fee(&self) -> u16 {
+        self.exchange_fee
     }
 
     #[payable]
@@ -129,5 +145,9 @@ impl Contract {
         assert_one_yocto();
         self.assert_owner();
         self.registered_tokens.insert(token_id);
+    }
+
+    pub fn check_token_registered(&self, token_id: AccountId) -> bool {
+        self.registered_tokens.contains(&token_id)
     }
 }

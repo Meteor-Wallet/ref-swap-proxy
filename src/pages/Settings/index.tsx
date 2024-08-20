@@ -1,3 +1,4 @@
+import { ContractAccountId } from '../../components/ContractAccountId';
 import { darkMode } from '../../signals/darkMode';
 import {
     activeAccount,
@@ -73,6 +74,8 @@ export function Settings() {
                     'None'
                 )}
             </span>
+            <hr class='h-1 my-5 bg-gray-400 dark:bg-gray-600' />
+            <ContractAccountId />
             <hr class='h-1 my-5 bg-gray-400 dark:bg-gray-600' />
         </div>
     );
