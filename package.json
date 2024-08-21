@@ -1,5 +1,5 @@
 {
-    "name": "ref-exchange-proxy-v2",
+    "name": "ref-swap-proxy",
     "version": "1.0.0",
     "scripts": {
         "contract:build": "cd rust-contract && cargo near build --no-release --no-abi --out-dir '../public'",

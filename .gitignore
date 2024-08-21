@@ -1,5 +1,6 @@
 # Contracts
 rust-contract/target
+public/ref_swap_proxy.wasm
 
 # Logs
 logs
