@@ -124,8 +124,7 @@ export const refreshContractVersion = async (): Promise<void> => {
 
     if (
         !getMetadataResponse ||
-        getMetadataResponse.link !==
-            'https://github.com/Near-Playground/ref-exchange-proxy-v2'
+        getMetadataResponse.link !== config.contractRepo
     ) {
         contractVersion.value = {
             version,
