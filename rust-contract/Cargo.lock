@@ -2445,6 +2445,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8452105ba047068f40ff7093dd1d9da90898e63dd61736462e9cdda6a90ad3c3"
 
 [[package]]
+name = "meteor-swap-proxy"
+version = "0.1.1"
+dependencies = [
+ "borsh",
+ "near-contract-standards",
+ "near-sdk",
+ "near-workspaces",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
 name = "mime"
 version = "0.3.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3900,19 +3913,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a415a013dd7c5d4221382329a5a3482566da675737494935cbbbcdec04662f9d"
 dependencies = [
  "smallvec",
-]
-
-[[package]]
-name = "ref-exchange-proxy-v2"
-version = "0.1.1"
-dependencies = [
- "borsh",
- "near-contract-standards",
- "near-sdk",
- "near-workspaces",
- "serde",
- "serde_json",
- "tokio",
 ]
 
 [[package]]

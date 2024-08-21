@@ -1,5 +1,5 @@
 [package]
-name = "ref-exchange-proxy-v2"
+name = "meteor-swap-proxy"
 description = "cargo-near-new-project-description"
 version = "0.1.1"
 edition = "2021"
