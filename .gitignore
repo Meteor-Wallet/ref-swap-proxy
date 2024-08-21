@@ -1,6 +1,7 @@
 # Contracts
 rust-contract/target
 public/meteor_ref_swap_proxy.wasm
+rust-contract/scripts/testnet/deployment/build
 
 # Logs
 logs
