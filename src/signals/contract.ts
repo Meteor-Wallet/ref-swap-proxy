@@ -124,8 +124,7 @@ export const refreshContractVersion = async (): Promise<void> => {
 
     if (
         !getMetadataResponse ||
-        getMetadataResponse.link !==
-            'https://github.com/Near-Playground/ref-exchange-proxy-v2'
+        getMetadataResponse.link !== config.contractRepo
     ) {
         contractVersion.value = {
             version,
@@ -195,7 +194,7 @@ export async function deployContract(fee: number, referralId: string) {
 
     const account = await near.account(contractAccountId.value);
 
-    const contract = await fetch('/ref_exchange_proxy_v2.wasm');
+    const contract = await fetch('/ref_swap_proxy.wasm');
     const contractBuffer = await contract.arrayBuffer();
     const contractCode = new Uint8Array(contractBuffer);
 
@@ -248,7 +247,7 @@ export async function updateContract() {
 
     const account = await near.account(contractAccountId.value);
 
-    const contract = await fetch('/ref_exchange_proxy_v2.wasm');
+    const contract = await fetch('/ref_swap_proxy.wasm');
     const contractBuffer = await contract.arrayBuffer();
     const contractCode = new Uint8Array(contractBuffer);
 
