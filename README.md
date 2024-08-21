@@ -1,33 +1,33 @@
-# Ref Exchange Proxy Contract
+# Introduction
 
-This project serves as a continuation of the previous project [Ref Proxy](https://github.com/Near-Playground/ref-proxy).
+This is a contract that allows wallet developer to charge some fee to users while performing token swap.
 
-## Overview
+It is designed to use Ref Exchange as the target swapping DEX
 
-As discussed in the previous project, we will rewrite the entire contract to improve its functionality and robustness. Our main objectives include:
+## Pre-requisites
 
-1. **Error Handling:** Implement comprehensive error handling mechanisms to address issues such as slippage errors during swaps.
-2. **FT Transfer Failures:** Resolve problems that arise from failures to transfer Fungible Tokens (FT), for instance, when the recipient has not registered a storage deposit on the FT contract.
+-   node & npm installed
+-   rust & cargo installed
+-   near-cli installed
+-   cargo near installed
 
-## Objectives
+## How to use this?
 
-### 1. Comprehensive Error Handling
+For testnet:
 
-We aim to implement mechanisms that handle any errors thrown during swaps, including but not limited to:
+```shell
+git clone git@github.com:Meteor-Wallet/ref-swap-proxy.git
+cd "ref-swap-proxy"
+npm install
+npm run contract:build
+npm run dev
+```
 
--   Slippage errors
--   Network issues
--   Contract execution failures
+---
 
-### 2. FT Transfer Failures
+For mainnet, runs:
 
-To address the failures in transferring FT, we will:
-
--   Ensure recipients have registered storage deposits on the FT contract
--   Implement fallback mechanisms for unregistered recipients
-
-## Future Work
-
-Beyond the immediate goals, we will explore additional improvements and optimizations to enhance the contract's efficiency and reliability.
-
-For more information, refer to the original [Ref Proxy](https://github.com/Near-Playground/ref-proxy) project.
+```shell
+npm run contract:build
+npm run dev:mainnet
+```
