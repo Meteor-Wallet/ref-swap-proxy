@@ -52,8 +52,11 @@ export function ContractTokens() {
                         const input = (e.target as HTMLInputElement).value;
 
                         try {
-                            supportedTokenListFormat.parse(JSON.parse(input));
-                            setSupportedTokenList(input);
+                            const supportedTokenList =
+                                supportedTokenListFormat.parse(eval(input));
+                            setSupportedTokenList(
+                                JSON.stringify(supportedTokenList, null, 4)
+                            );
                         } catch (err: unknown) {
                             // dont save invalid json
                         }
