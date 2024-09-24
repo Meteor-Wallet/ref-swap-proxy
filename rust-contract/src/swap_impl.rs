@@ -79,6 +79,12 @@ impl Contract {
 
         let token_in = env::predecessor_account_id();
         let amount_in = amount;
+
+        // Security remarks
+        // When amount_in is too much, the calculation might overflow
+        // This behaviour is noticed but purposely ignored due to reasons:
+        // 1. u256 is not natively supported in Rust, and converting to U256 requires external libraries and cost more gas
+        // 2. if overflow happens, unwrap() will cause panic and the ft contract will return all the funds to user, causing no loss
         let fee = amount_in
             .checked_mul(self.exchange_fee as u128)
             .unwrap()

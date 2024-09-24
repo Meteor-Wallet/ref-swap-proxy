@@ -20,4 +20,10 @@ export const patchNotes: PatchNote[] = [
         date: new Date('2024-08-20'),
         description: 'Add a few getters to get variables.',
     },
+    {
+        version: version++,
+        humanReadableVersion: '0.1.2',
+        date: new Date('2024-08-22'),
+        description: 'Fix a storage calculation error.',
+    },
 ];

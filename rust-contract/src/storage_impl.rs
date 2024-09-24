@@ -6,7 +6,9 @@ use near_contract_standards::storage_management::{
 const NEAR_TOKEN_STORAGE: StorageUsage = 16;
 const TOKEN_ID_STORAGE: StorageUsage = 64;
 const TOKEN_BALANCE_STORAGE: StorageUsage = TOKEN_ID_STORAGE + NEAR_TOKEN_STORAGE;
-const ACCOUNT_STORAGE: StorageUsage = NEAR_TOKEN_STORAGE + TOKEN_BALANCE_STORAGE;
+const SOME_OR_NONE: StorageUsage = 1;
+const OPTIONAL_TOKEN_BALANCE_STORAGE: StorageUsage = TOKEN_BALANCE_STORAGE + SOME_OR_NONE;
+const ACCOUNT_STORAGE: StorageUsage = NEAR_TOKEN_STORAGE + OPTIONAL_TOKEN_BALANCE_STORAGE;
 const ACC_ID_STORAGE: StorageUsage = 64;
 /// As a key for LookupMap, 4 bytes length would be added to the head
 const ACC_ID_AS_KEY_STORAGE: StorageUsage = ACC_ID_STORAGE + 4;
