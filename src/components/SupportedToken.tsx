@@ -55,7 +55,6 @@ export function SupportedToken(props: { token: string }) {
                     account_id: contractAccountId.value,
                 },
             });
-
             if (lowerBound < 0 || parseFloat(balance) > lowerBound) {
                 setLowerBound(parseFloat(balance));
             }
@@ -94,22 +93,44 @@ export function SupportedToken(props: { token: string }) {
         const transactions: Array<Optional<Transaction, 'signerId'>> = [];
 
         const [storageBalanceBounds, storageBalanceOf] = await Promise.all([
-            account.viewFunction({
-                contractId: token,
-                methodName: 'storage_balance_bounds',
-                args: {},
-            }),
-            account.viewFunction({
-                contractId: token,
-                methodName: 'storage_balance_of',
-                args: {
-                    account_id: contractAccountId.value,
-                },
-            }),
+            account
+                .viewFunction({
+                    contractId: token,
+                    methodName: 'storage_balance_bounds',
+                    args: {},
+                })
+                .catch((err: unknown) => {
+                    if (['aurora', 'usn'].includes(token)) {
+                        return {
+                            min: '0',
+                            max: '0',
+                        };
+                    }
+
+                    throw err;
+                }),
+            account
+                .viewFunction({
+                    contractId: token,
+                    methodName: 'storage_balance_of',
+                    args: {
+                        account_id: contractAccountId.value,
+                    },
+                })
+                .then((balance) => {
+                    if (balance === null) {
+                        return {
+                            total: '0',
+                            available: '0',
+                        };
+                    }
+
+                    return balance;
+                }),
         ]);
 
         const requiredStorageDeposit = new BN(storageBalanceBounds.min).sub(
-            new BN(storageBalanceOf)
+            new BN(storageBalanceOf.total)
         );
 
         if (requiredStorageDeposit.gt(new BN(0))) {
