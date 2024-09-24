@@ -103,17 +103,28 @@ export function SupportedToken(props: { token: string }) {
                     min: '1250000000000000000000',
                     max: '1250000000000000000000',
                 })),
-            account.viewFunction({
-                contractId: token,
-                methodName: 'storage_balance_of',
-                args: {
-                    account_id: contractAccountId.value,
-                },
-            }),
+            account
+                .viewFunction({
+                    contractId: token,
+                    methodName: 'storage_balance_of',
+                    args: {
+                        account_id: contractAccountId.value,
+                    },
+                })
+                .then((balance) => {
+                    if (balance === null) {
+                        return {
+                            total: '0',
+                            available: '0',
+                        };
+                    }
+
+                    return balance;
+                }),
         ]);
 
         const requiredStorageDeposit = new BN(storageBalanceBounds.min).sub(
-            new BN(storageBalanceOf)
+            new BN(storageBalanceOf.total)
         );
 
         if (requiredStorageDeposit.gt(new BN(0))) {
