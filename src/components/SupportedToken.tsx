@@ -99,10 +99,16 @@ export function SupportedToken(props: { token: string }) {
                     methodName: 'storage_balance_bounds',
                     args: {},
                 })
-                .catch(() => ({
-                    min: '1250000000000000000000',
-                    max: '1250000000000000000000',
-                })),
+                .catch((err: unknown) => {
+                    if (['aurora', 'usn'].includes(token)) {
+                        return {
+                            min: '0',
+                            max: '0',
+                        };
+                    }
+
+                    throw err;
+                }),
             account
                 .viewFunction({
                     contractId: token,
