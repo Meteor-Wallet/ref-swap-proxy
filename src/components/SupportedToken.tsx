@@ -55,7 +55,6 @@ export function SupportedToken(props: { token: string }) {
                     account_id: contractAccountId.value,
                 },
             });
-
             if (lowerBound < 0 || parseFloat(balance) > lowerBound) {
                 setLowerBound(parseFloat(balance));
             }
@@ -94,11 +93,16 @@ export function SupportedToken(props: { token: string }) {
         const transactions: Array<Optional<Transaction, 'signerId'>> = [];
 
         const [storageBalanceBounds, storageBalanceOf] = await Promise.all([
-            account.viewFunction({
-                contractId: token,
-                methodName: 'storage_balance_bounds',
-                args: {},
-            }),
+            account
+                .viewFunction({
+                    contractId: token,
+                    methodName: 'storage_balance_bounds',
+                    args: {},
+                })
+                .catch(() => ({
+                    min: '1250000000000000000000',
+                    max: '1250000000000000000000',
+                })),
             account.viewFunction({
                 contractId: token,
                 methodName: 'storage_balance_of',
